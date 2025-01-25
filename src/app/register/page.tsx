@@ -10,7 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import axios from "axios";
 
 const CLERK_API_URL = "https://api.clerk.dev/v1";
-const CLERK_SECRET_KEY = 'sk_test_dTdlvglJ59QkLO4u8uJA6uYqCCCRZZIZ6VsG6MnrmT';
+const CLERK_SECRET_KEY = 'sk_live_d6jCG0Y9CSatnGHIFtan6L2mRAQdwcxBdkutOYab2M';
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
@@ -169,8 +169,8 @@ export default function RegisterPage() {
   return (
     <div className="container px-4 min-h-screen mx-auto max-w-4xl">
       <Button
-        className="absolute top-4 left-4"
-        onClick={() => router.replace("/")}
+        className="absolute p-2 top-4 left-4"
+        onClick={() => router.back()}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Voltar

@@ -39,7 +39,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white p-8">
       <button 
         className="absolute top-8 left-8 text-gray-800 hover:text-gray-600"
-        onClick={() => router.replace('/')}
+        onClick={() => router.back()}
       >
         <ArrowLeft size={24} />
       </button>

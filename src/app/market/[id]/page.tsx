@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
+import {
   faStar,
   faLocationDot,
   faClock,
   faLink,
-  faPhone
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Header } from "@/components/Header";
@@ -33,7 +33,11 @@ type MarketProps = {
   }>;
 };
 
-export default function MarketPage({ params }: { params: Promise<{ id: string }> }) {
+export default function MarketPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const [market, setMarket] = useState<MarketProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -90,10 +94,10 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className="bg-[#f1f1f1] min-h-screen mx-auto max-w-4xl">
-      <Header 
+      <Header
         showBackButton={true}
         isLoggedIn={isSignedIn ?? false}
-        onLoginPress={() => router.push('/login')}
+        onLoginPress={() => router.push("/login")}
       />
 
       <div className="mx-auto p-4">
@@ -117,7 +121,10 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
           {/* Market Info */}
           <div className="space-y-3 mb-6">
             <div className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faLocationDot} className="text-green-500" />
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="text-green-500"
+              />
               <p className="text-gray-600">{market.address}</p>
             </div>
             <div className="flex items-center gap-2">
@@ -130,9 +137,9 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
             </div>
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faLink} className="text-green-500" />
-              <a 
-                href={`https://${market.website}`} 
-                target="_blank" 
+              <a
+                href={`https://${market.website}`}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-500 hover:underline"
               >
@@ -146,9 +153,7 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
           </div>
 
           {/* Special Offer Button */}
-          <button
-            className="w-full bg-green-500 text-white font-bold py-3 rounded-lg mb-6"
-          >
+          <button className="w-full bg-green-500 text-white font-bold py-3 rounded-lg mb-6">
             Ver oferta especial
           </button>
         </div>
@@ -158,12 +163,20 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {market.products.map((product, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-              <div className="relative w-full h-48 mb-4">
+              <div className="relative w-full h-48 mb-40">
                 <Image
                   src={product.image}
                   alt={product.name}
-                  fill
-                  className="rounded-lg object-cover"
+                  width={500} // Substitua pelo tamanho desejado
+                  height={500} // Mantém proporções
+                  style={{
+                    width: "100%",
+                    aspectRatio: "1",
+                    borderRadius: "8px",
+                    marginBottom: "8px",
+                    objectFit: "cover", // Similar ao resizeMode
+                    overflow: "hidden", // Para arredondamento correto
+                  }}
                 />
               </div>
               <h3 className="text-xl font-bold text-black">{product.name}</h3>
@@ -172,10 +185,12 @@ export default function MarketPage({ params }: { params: Promise<{ id: string }>
               <button
                 className="w-full bg-green-500 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"
                 onClick={() => {
-                  const phone = market.phone.replace(/\D/g, '');
+                  const phone = market.phone.replace(/\D/g, "");
                   const message = `Olá ${market.name}, gostaria de pedir:\n\n${product.name} - ${product.description}\n\nVim do Coroatá Conecta\n\nValor: ${product.price}`;
-                  const url = `https://wa.me/+55${phone}?text=${encodeURIComponent(message)}`;
-                  window.open(url, '_blank');
+                  const url = `https://wa.me/+55${phone}?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(url, "_blank");
                 }}
               >
                 <FontAwesomeIcon icon={faWhatsapp} />
