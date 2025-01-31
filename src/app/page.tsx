@@ -56,6 +56,7 @@ type PromotionsProps = Array<{
   image: string;
   button_text: string;
   category: string;
+  establishment_id: string;
 }>;
 
 export default function Home() {
@@ -269,7 +270,7 @@ export default function Home() {
                   <p className="text-sm text-black my-2">{promo.description}</p>
                   <button
                     className="bg-green-500 px-4 py-2 rounded-lg text-white font-bold mt-2 w-full"
-                    onClick={() => router.push(`/market/1`)}
+                    onClick={() => router.push(`/market/${promo.establishment_id}`)}
                   >
                     Ver Oferta
                   </button>
