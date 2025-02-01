@@ -138,7 +138,7 @@ export default function MarketPage({
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faLink} className="text-green-500" />
               <a
-                href={`https://${market.website}`}
+                href={`${market.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-500 hover:underline"
