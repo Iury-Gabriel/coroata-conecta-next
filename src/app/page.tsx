@@ -17,7 +17,6 @@ export default function Bio() {
         <div className="text-center mb-12 relative">
           <h1 className="text-4xl font-bold text-black mb-3">
             Descubra Coroatá
-            <FontAwesomeIcon icon={faCircleCheck} className="text-green-500 ml-2 text-2xl" />
           </h1>
           <p className="text-gray-600 text-lg mb-6">Encontre o melhor da cidade</p>
 
