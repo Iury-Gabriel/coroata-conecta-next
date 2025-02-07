@@ -20,7 +20,7 @@ export function Header({ isLoggedIn, onLoginPress, showBackButton = false }: Hea
       {showBackButton && (
         <button 
           className="mr-4 text-green-600 hover:text-green-700"
-          onClick={() => router.replace("/")}
+          onClick={() => router.replace("/home")}
         >
           <FiArrowLeft size={24} />
         </button>

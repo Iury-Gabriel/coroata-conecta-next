@@ -143,7 +143,7 @@ export default function ProfilePage() {
         <Button 
           variant="destructive" 
           className="w-full py-3 mb-3"
-          onClick={() => signOut(() => router.push("/"))}
+          onClick={() => signOut(() => router.push("/home"))}
         >
           Sair da Conta
         </Button>
