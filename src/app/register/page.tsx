@@ -16,6 +16,7 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -110,6 +111,7 @@ export default function RegisterPage() {
               referralCode: userReferralCode,
               points: 0,
               usedReferralCode: referralCode || null,
+              phone
             };
 
             if (clerk.user) {
@@ -215,6 +217,13 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <Input
+              placeholder="Whatsapp"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+
             <Input
               placeholder="Senha"
               type="password"
