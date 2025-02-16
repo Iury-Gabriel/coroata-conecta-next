@@ -105,6 +105,43 @@ export default function Home() {
     setShowIOSTutorial(false)
   }
 
+  const handleClickDetails = async (marketId: string) => {
+    console.log("Clicou no estabelecimento", marketId);
+
+    try {
+      // Corpo da requisição
+      const payload = {
+        clicked_type: "ver_detalhes", // Tipo de clique, por exemplo "details"
+        establishment_id: marketId,
+      };
+
+      // Fazendo a requisição para a API
+      const response = await fetch(
+        "https://iurygabriel.com.br/nlw-pocket-api/cpmclicks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Resposta da API:", data);
+      } else {
+        console.error(
+          "Erro ao consumir a API:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+  };
+
   async function fetchPromotions() {
     try {
       const response = await fetch("https://iurygabriel.com.br/nlw-pocket-api/promotions")
@@ -367,7 +404,10 @@ export default function Home() {
                   </div>
                   <button
                     className="bg-green-500 px-4 py-2 rounded-lg text-white font-bold w-full"
-                    onClick={() => router.push(`/market/${promo.establishment_id}`)}
+                    onClick={() => {
+                      handleClickDetails(String(promo.establishment_id));
+                      router.push(`/market/${promo.establishment_id}`)
+                    }}
                   >
                     Ver Oferta
                   </button>
@@ -456,7 +496,10 @@ export default function Home() {
                   </div>
                   <button
                     className="bg-green-500 px-4 py-2 rounded-lg text-white w-full mt-2"
-                    onClick={() => router.push(`/market/${market.id}`)}
+                    onClick={() => {
+                      handleClickDetails(String(market.id));
+                      router.push(`/market/${market.id}`)
+                    }}
                   >
                     Ver Mercado
                   </button>

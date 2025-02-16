@@ -45,6 +45,43 @@ export default function MarketPage({
   const { isSignedIn } = useAuth();
   const { id } = React.use(params);
 
+  const handleClickWhatsapp = async (marketId: string) => {
+    console.log("Clicou no estabelecimento", marketId);
+
+    try {
+      // Corpo da requisição
+      const payload = {
+        clicked_type: "whatsapp", // Tipo de clique, por exemplo "details"
+        establishment_id: marketId,
+      };
+
+      // Fazendo a requisição para a API
+      const response = await fetch(
+        "https://iurygabriel.com.br/nlw-pocket-api/cpmclicks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Resposta da API:", data);
+      } else {
+        console.error(
+          "Erro ao consumir a API:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchMarket = async () => {
       try {
@@ -153,8 +190,20 @@ export default function MarketPage({
           </div>
 
           {/* Special Offer Button */}
-          <button className="w-full bg-green-500 text-white font-bold py-3 rounded-lg mb-6">
-            Ver oferta especial
+          <button
+            className="w-full bg-green-500 text-white font-bold py-3 rounded-lg mb-6"
+            onClick={() => {
+              handleClickWhatsapp(String(market.id));
+              const phone = market.phone.replace(/\D/g, "");
+              const message = `Olá ${market.name}`;
+              const url = `https://wa.me/+55${phone}?text=${encodeURIComponent(
+                message
+              )}`;
+              window.open(url, "_blank");
+            }}
+          >
+            <FontAwesomeIcon icon={faWhatsapp} />
+            Conversar com o estabelecimento
           </button>
         </div>
 
@@ -185,6 +234,7 @@ export default function MarketPage({
               <button
                 className="w-full bg-green-500 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"
                 onClick={() => {
+                  handleClickWhatsapp(String(market.id));
                   const phone = market.phone.replace(/\D/g, "");
                   const message = `Olá ${market.name}, gostaria de pedir:\n\n${product.name} - ${product.description}\n\nVim do Coroatá Conecta\n\nValor: ${product.price}`;
                   const url = `https://wa.me/+55${phone}?text=${encodeURIComponent(
