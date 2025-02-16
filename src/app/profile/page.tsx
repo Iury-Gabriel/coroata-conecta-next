@@ -13,6 +13,11 @@ export default function ProfilePage() {
   const router = useRouter();
   const { isSignedIn } = useAuth();
 
+  if(!isSignedIn) {
+    router.push('/');
+    return null;
+  }
+
   const handleShareReferralCode = async () => {
     try {
       const referralCode = user?.unsafeMetadata?.referralCode || 'SEM-CODIGO';
